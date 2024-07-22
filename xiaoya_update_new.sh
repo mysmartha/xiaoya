@@ -74,12 +74,12 @@ if [ $1 ]; then
 	docker stop xiaoya-hostmode 2>/dev/null
 	docker rm xiaoya-hostmode 2>/dev/null
 	docker rmi xiaoyaliu/alist:hostmode
-	docker pull xiaoyaliu/alist:hostmode
+	docker pull docker.fxxk.dedyn.io/xiaoyaliu/alist:hostmode
 	if [[ -f /etc/xiaoya/proxy.txt ]] && [[ -s /etc/xiaoya/proxy.txt ]]; then
         	proxy_url=$(head -n1 /etc/xiaoya/proxy.txt)
-		docker create  --env HTTP_PROXY="$proxy_url" --env HTTPS_PROXY="$proxy_url" --env no_proxy="*.aliyundrive.com,*.alipan.com" --network=host -v /etc/xiaoya:/data -v /etc/xiaoya/data:/www/data --restart=always --name=xiaoya xiaoyaliu/alist:hostmode
+		docker create  --env HTTP_PROXY="$proxy_url" --env HTTPS_PROXY="$proxy_url" --env no_proxy="*.aliyundrive.com,*.alipan.com" --network=host -v /etc/xiaoya:/data -v /etc/xiaoya/data:/www/data --restart=always --name=xiaoya docker.fxxk.dedyn.io/xiaoyaliu/alist:hostmode
 	else	
-		docker create  --network=host -v /etc/xiaoya:/data -v /etc/xiaoya/data:/www/data --restart=always --name=xiaoya xiaoyaliu/alist:hostmode
+		docker create  --network=host -v /etc/xiaoya:/data -v /etc/xiaoya/data:/www/data --restart=always --name=xiaoya docker.fxxk.dedyn.io/xiaoyaliu/alist:hostmode
 	fi	
 	docker start xiaoya
 	exit
@@ -92,7 +92,7 @@ fi
 docker stop xiaoya 2>/dev/null
 docker rm xiaoya 2>/dev/null
 docker rmi xiaoyaliu/alist:latest 
-docker pull xiaoyaliu/alist:latest
+docker pull docker.fxxk.dedyn.io/xiaoyaliu/alist:latest
 if [[ -f /etc/xiaoya/proxy.txt ]] && [[ -s /etc/xiaoya/proxy.txt ]]; then
 	proxy_url=$(head -n1 /etc/xiaoya/proxy.txt)
        	docker create  -p 5678:80 -p 2345:2345 -p 2346:2346 --env HTTP_PROXY="$proxy_url" --env HTTPS_PROXY="$proxy_url" --env no_proxy="*.aliyundrive.com,*.alipan.com" -v /etc/xiaoya:/data -v /etc/xiaoya/data:/www/data --restart=always --name=xiaoya docker.fxxk.dedyn.io/xiaoyaliu/alist:latest
