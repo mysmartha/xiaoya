@@ -95,9 +95,9 @@ docker rmi xiaoyaliu/alist:latest
 docker pull xiaoyaliu/alist:latest
 if [[ -f /etc/xiaoya/proxy.txt ]] && [[ -s /etc/xiaoya/proxy.txt ]]; then
 	proxy_url=$(head -n1 /etc/xiaoya/proxy.txt)
-       	docker create  -p 5678:80 -p 2345:2345 -p 2346:2346 --env HTTP_PROXY="$proxy_url" --env HTTPS_PROXY="$proxy_url" --env no_proxy="*.aliyundrive.com,*.alipan.com" -v /etc/xiaoya:/data -v /etc/xiaoya/data:/www/data --restart=always --name=xiaoya xiaoyaliu/alist:latest
+       	docker create  -p 5678:80 -p 2345:2345 -p 2346:2346 --env HTTP_PROXY="$proxy_url" --env HTTPS_PROXY="$proxy_url" --env no_proxy="*.aliyundrive.com,*.alipan.com" -v /etc/xiaoya:/data -v /etc/xiaoya/data:/www/data --restart=always --name=xiaoya docker.fxxk.dedyn.io/xiaoyaliu/alist:latest
 else
-	docker create  -p 5678:80 -p 2345:2345 -p 2346:2346 -v /etc/xiaoya:/data -v /etc/xiaoya/data:/www/data --restart=always --name=xiaoya xiaoyaliu/alist:latest
+	docker create  -p 5678:80 -p 2345:2345 -p 2346:2346 -v /etc/xiaoya:/data -v /etc/xiaoya/data:/www/data --restart=always --name=xiaoya docker.fxxk.dedyn.io/xiaoyaliu/alist:latest
 fi	
 
 #bash -c "$(curl --ipv4 -sSL http://docker.xiaoya.pro/update_data.sh)" -s --no-upgrade
